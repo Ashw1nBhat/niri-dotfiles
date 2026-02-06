@@ -1,23 +1,12 @@
-// This config is in the KDL format: https://kdl.dev
-// "/-" comments out the following node.
-// Check the wiki for a full description of the configuration:
-// https://yalter.github.io/niri/Configuration:-Introduction
-
-// Input device configuration.
-// Find the full list of options on the wiki:
-// https://yalter.github.io/niri/Configuration:-Input
-
 prefer-no-csd
 input {
     keyboard {
-	
 	repeat-rate 35
 	repeat-delay 200
 
         xkb {
         }
 
-        // Enable numlock on startup, omitting this setting disables it.
         numlock
     }
 
@@ -35,7 +24,7 @@ input {
     focus-follows-mouse max-scroll-amount="0%"
 }
 
-
+// Add your monitor setup here. I have set mine up so that, as I go up from my laptop monitor, my mouse enters my main monitor on the bottom, hence the negative values for position.
 output "HDMI-A-1" {
    mode "1920x1080@60.000"
    scale 1
@@ -50,8 +39,9 @@ output "eDP-1" {
     position x=0 y=0
 }
 
+// Feel free to experiment with layouts. There are a lot of options available here. 
 layout {
-    gaps 10
+    gaps 6
 
     center-focused-column "never"
 
@@ -99,17 +89,20 @@ screenshot-path "~/Pictures/Screenshots/screenshot_%Y-%m-%d_%H-%M-%S.png"
 animations {
 }
 
+// Update this to add whatever browser you prefer. I use zen.
 window-rule {
     match app-id=r#"zen-browser$"# title="^Picture-in-Picture$"
     open-floating true
 }
 
+// The draw-border-with-background is important if you want your terminal to have transparency.
 window-rule {
     geometry-corner-radius 20
     clip-to-geometry true
     draw-border-with-background false
 }
 
+// I have tried to make sure that the options for the key binding are reasonable but tastes differ.
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
@@ -118,6 +111,8 @@ binds {
     Super+Alt+L hotkey-overlay-title="Lock the screen: Hyprlock" { spawn "hyprlock"; }
     Mod+Z hotkey-overlay-title="Open the browser: zen-browser" { spawn "zen-browser"; }
     Mod+Shift+F { fullscreen-window; }
+    // IMPORTANT: If you want to use rofi scripts, you would add them here. I have set up some defaults but if you want to add your own,
+    // you can set them up here.
     Mod+P { spawn "~/.config/scripts/repos.sh"; }
     Mod+S { spawn "~/.config/scripts/tmux.sh"; }
     Mod+B { spawn "~/.config/scripts/bookmarks.sh"; }
@@ -167,6 +162,7 @@ binds {
     Mod+Shift+Down  { focus-monitor-down; }
     Mod+Shift+Up    { focus-monitor-up; }
     Mod+Shift+Right { focus-monitor-right; }
+    // I have my monitors set up one on top of the other, therefore I have this vim binding to swap focus between the two monitors.
     Mod+Shift+K     { focus-monitor-up; }
     Mod+Shift+J     { focus-monitor-down; }
 
@@ -179,27 +175,18 @@ binds {
     Mod+Shift+Ctrl+K     { move-column-to-monitor-up; }
     Mod+Shift+Ctrl+L     { move-column-to-monitor-right; }
 
-    Mod+Page_Down      { focus-workspace-down; }
-    Mod+Page_Up        { focus-workspace-up; }
     Mod+J              { focus-workspace-down; }
     Mod+K              { focus-workspace-up; }
-    Mod+Ctrl+Page_Down { move-column-to-workspace-down; }
-    Mod+Ctrl+Page_Up   { move-column-to-workspace-up; }
     Mod+Ctrl+U         { move-column-to-workspace-down; }
     Mod+Ctrl+I         { move-column-to-workspace-up; }
 
-    Mod+Shift+Page_Down { move-workspace-down; }
-    Mod+Shift+Page_Up   { move-workspace-up; }
+    Mod+Shift+U { move-workspace-down; }
+    Mod+Shift+I { move-workspace-up; }
 
     Mod+WheelScrollDown      cooldown-ms=150 { focus-workspace-down; }
     Mod+WheelScrollUp        cooldown-ms=150 { focus-workspace-up; }
     Mod+Ctrl+WheelScrollDown cooldown-ms=150 { move-column-to-workspace-down; }
     Mod+Ctrl+WheelScrollUp   cooldown-ms=150 { move-column-to-workspace-up; }
-
-    Mod+WheelScrollRight      { focus-column-right; }
-    Mod+WheelScrollLeft       { focus-column-left; }
-    Mod+Ctrl+WheelScrollRight { move-column-right; }
-    Mod+Ctrl+WheelScrollLeft  { move-column-left; }
 
     Mod+Shift+WheelScrollDown      { focus-column-right; }
     Mod+Shift+WheelScrollUp        { focus-column-left; }
@@ -269,9 +256,7 @@ debug {
 
 include "./colors.kdl"
 
-spawn-sh-at-startup "vicinae server"
-
-
+// These next 2 configs, overview and layer-rule are for the niri overview to show the wallpaper instead of the grey overlay.
 overview {
   workspace-shadow {
     off
