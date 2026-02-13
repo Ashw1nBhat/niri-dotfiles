@@ -41,7 +41,7 @@ output "eDP-1" {
 
 // Feel free to experiment with layouts. There are a lot of options available here. 
 layout {
-    gaps 6
+    gaps 2
 
     center-focused-column "never"
 
@@ -89,15 +89,15 @@ screenshot-path "~/Pictures/Screenshots/screenshot_%Y-%m-%d_%H-%M-%S.png"
 animations {
 }
 
-// Update this to add whatever browser you prefer. I use zen.
+// Update this to add whatever browser you prefer. I use waterfox.
 window-rule {
-    match app-id=r#"zen-browser$"# title="^Picture-in-Picture$"
+    match app-id=r#"waterfox"# title="^Picture-in-Picture$"
     open-floating true
 }
 
 // The draw-border-with-background is important if you want your terminal to have transparency.
 window-rule {
-    geometry-corner-radius 20
+    geometry-corner-radius 10
     clip-to-geometry true
     draw-border-with-background false
 }
@@ -109,13 +109,12 @@ binds {
     Mod+Return hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Mod+D hotkey-overlay-title="Run an launcher rofi" { spawn "rofi" "-show" "drun"; }
     Super+Alt+L hotkey-overlay-title="Lock the screen: Hyprlock" { spawn "hyprlock"; }
-    Mod+Z hotkey-overlay-title="Open the browser: zen-browser" { spawn "zen-browser"; }
+    Mod+Z hotkey-overlay-title="Open the browser: waterfox" { spawn "waterfox"; }
     Mod+Shift+F { fullscreen-window; }
     // IMPORTANT: If you want to use rofi scripts, you would add them here. I have set up some defaults but if you want to add your own,
     // you can set them up here.
     Mod+P { spawn "~/.config/scripts/repos.sh"; }
     Mod+S { spawn "~/.config/scripts/tmux.sh"; }
-    Mod+B { spawn "~/.config/scripts/bookmarks.sh"; }
     Mod+W { spawn "~/.config/scripts/wifi.sh"; }
     Mod+Shift+Q { spawn "~/.config/scripts/powermenu.sh"; }
     

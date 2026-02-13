@@ -5,15 +5,19 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+. "$HOME/.cargo/env"
+
 alias ls='eza -lao --no-user --icons=always --group-directories-first'
+alias config='/usr/bin/git --git-dir=/home/ash/.cfg/ --work-tree /home/ash'
 alias grep='grep --color=auto'
+alias "cd .."='..' 
+
 PS1="\[\033[38;2;166;227;161m\]\u\[\033[0m\]@\
 \[\033[38;2;137;180;250m\]\h\[\033[0m\]:\
 \[\033[38;2;249;226;175m\]\w\[\033[0m\] \
 \[\033[38;2;245;194;231m\]\$(git branch 2>/dev/null | grep '^\*' | colrm 1 2 | sed 's/^/ (/' | sed 's/\$/)/')\
 \[\033[0m\]\[\033[38;2;205;214;244m\]\$ \[\033[0m\]"
 
+export PATH="$HOME/.local/bin:$PATH"
 
 fastfetch
-. "$HOME/.cargo/env"
-alias config='/usr/bin/git --git-dir=/home/ash/.cfg/ --work-tree /home/ash'
